@@ -49,7 +49,6 @@
     <p>Loading Authentication Engine…</p>
   </div>
   <div id="root"></div>
-  <!-- Pre-compiled, no Babel needed -->
   <script>
 const {
   useState,
@@ -3237,7 +3236,9 @@ function App() {
   const [dashTab, setDashTab] = useState("reports");
   const [adminTab, setAdminTab] = useState("dashboard");
   const [lang, setLang] = useState("en");
-  const [curr, setCurr] = useState("PHP");
+  const [currency, setCurrency] = useState("PHP");
+  const curr = currency,
+    setCurr = setCurrency;
   const [user, setUser] = useState(null);
   const [adminIn, setAdminIn] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -6906,8 +6907,8 @@ const loader = document.getElementById('vt-loader');
 if (loader) {
   setTimeout(() => {
     loader.style.opacity = '0';
-    setTimeout(() => loader.remove(), 500);
-  }, 200);
+    setTimeout(() => loader.remove(), 400);
+  }, 600);
 }
   </script>
 </body>
