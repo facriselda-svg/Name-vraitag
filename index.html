@@ -3073,11 +3073,12 @@ function BagCarousel() {
   const slide = BAG_SLIDES[active];
   return /*#__PURE__*/React.createElement("div", {
     style: {
-      position: "relative",
+      position: "absolute",
+      inset: 0,
       width: "100%",
+      height: "100%",
       overflow: "hidden",
-      background: `linear-gradient(135deg,${C.navy}ee,${C.green}cc)`,
-      zIndex: 1
+      zIndex: 0
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3086,150 +3087,45 @@ function BagCarousel() {
       backgroundImage: `url('${slide.img}')`,
       backgroundSize: "cover",
       backgroundPosition: "center",
-      transition: "opacity 0.5s ease",
+      transition: "opacity 0.7s ease",
       opacity: animating ? 0 : 1,
-      filter: "brightness(0.35) saturate(1.2)"
+      filter: "brightness(0.28) saturate(1.3)"
     }
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
       inset: 0,
-      background: `linear-gradient(160deg,${C.navy}99 0%,${C.green}66 50%,${C.navy}99 100%)`
+      background: `linear-gradient(170deg,${C.navy}dd 0%,${C.navy}88 40%,${C.green}44 75%,${C.navy}cc 100%)`
     }
   }), /*#__PURE__*/React.createElement("div", {
     style: {
-      position: "relative",
-      zIndex: 2,
-      maxWidth: 1080,
-      margin: "0 auto",
-      padding: "42px 24px",
-      display: "grid",
-      gridTemplateColumns: "1fr auto",
-      gap: 32,
-      alignItems: "center",
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: "#fff",
-      opacity: animating ? 0 : 1,
-      transition: "opacity 0.4s ease"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 11,
-      fontWeight: 800,
-      letterSpacing: 3,
-      color: C.goldBright,
-      marginBottom: 10
-    }
-  }, "✦ RECENTLY AUTHENTICATED"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: "clamp(22px,4vw,36px)",
-      fontWeight: 900,
-      lineHeight: 1.15,
-      marginBottom: 8,
-      fontFamily: "'Cormorant Garamond',Georgia,serif"
-    }
-  }, slide.brand), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 16,
-      color: "rgba(255,255,255,0.8)",
-      marginBottom: 16,
-      fontWeight: 600
-    }
-  }, slide.model), /*#__PURE__*/React.createElement("div", {
-    style: {
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      right: 0,
       display: "flex",
-      alignItems: "center",
-      gap: 12,
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: C.green,
-      borderRadius: 30,
-      padding: "6px 18px",
-      fontWeight: 900,
-      fontSize: 14,
-      color: "#fff",
-      border: `1.5px solid ${C.green}`,
-      letterSpacing: 0.5
-    }
-  }, "✓ ", slide.result), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: "rgba(255,255,255,0.12)",
-      borderRadius: 30,
-      padding: "6px 18px",
-      fontWeight: 800,
-      fontSize: 14,
-      color: C.goldBright,
-      border: `1.5px solid ${C.goldBright}44`
-    }
-  }, slide.score, "% Authentic"))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      gap: 14
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "column",
-      gap: 8
-    }
-  }, BAG_SLIDES.map((_, i) => /*#__PURE__*/React.createElement("button", {
-    key: i,
-    onClick: () => {
-      setAnimating(true);
-      setTimeout(() => {
-        setActive(i);
-        setAnimating(false);
-      }, 350);
-    },
-    style: {
-      width: i === active ? 10 : 6,
-      height: i === active ? 28 : 14,
-      borderRadius: 30,
-      background: i === active ? C.goldBright : "rgba(255,255,255,0.35)",
-      border: "none",
-      cursor: "pointer",
-      transition: "all 0.3s",
-      padding: 0
-    }
-  }))))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "relative",
-      zIndex: 2,
-      display: "flex",
-      gap: 0,
-      justifyContent: "center",
-      padding: "0 0 12px"
+      zIndex: 2
     }
   }, BAG_SLIDES.map((s, i) => /*#__PURE__*/React.createElement("button", {
     key: i,
     onClick: () => {
       setAnimating(true);
-      setTimeout(() => {
-        setActive(i);
-        setAnimating(false);
-      }, 350);
+      setTimeout(() => { setActive(i); setAnimating(false); }, 350);
     },
     style: {
       width: `${100 / BAG_SLIDES.length}%`,
-      height: 56,
+      height: 44,
       backgroundImage: `url('${s.img}')`,
       backgroundSize: "cover",
       backgroundPosition: "center",
       border: "none",
       cursor: "pointer",
-      opacity: i === active ? 1 : 0.45,
+      opacity: i === active ? 1 : 0.38,
       transition: "opacity 0.3s",
       borderBottom: i === active ? `3px solid ${C.goldBright}` : "3px solid transparent",
-      filter: i === active ? "brightness(1)" : "brightness(0.6)"
+      filter: i === active ? "brightness(0.85)" : "brightness(0.45)"
     }
-  }))));
+  )))));
 }
 function App() {
   const [page, setPage] = useState("home");
@@ -6460,17 +6356,17 @@ function App() {
       gap: 20
     }
   }, [{
-    img: "https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?q=80&w=900&auto=format&fit=crop",
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" style="width:100%;height:100%;display:block"><rect width="400" height="260" fill="#1C0F05"/><defs><linearGradient id="glv" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#D4A56A"/><stop offset="100%" stop-color="#9A6830"/></linearGradient></defs><path d="M75 92 Q75 72 95 72 L305 72 Q325 72 325 92 L325 196 Q325 212 305 212 L95 212 Q75 212 75 196 Z" fill="url(#glv)"/><path d="M75 92 Q75 72 95 72 L305 72 Q325 72 325 92 L325 196 Q325 212 305 212 L95 212 Q75 212 75 196 Z" fill="none" stroke="#7A5020" stroke-width="1.5"/><path d="M138 72 C138 42 150 26 163 26 C176 26 186 42 186 72" fill="none" stroke="#6A4010" stroke-width="7" stroke-linecap="round"/><path d="M214 72 C214 42 224 26 237 26 C250 26 262 42 262 72" fill="none" stroke="#6A4010" stroke-width="7" stroke-linecap="round"/><rect x="75" y="79" width="250" height="6" rx="3" fill="#8B6020"/><rect x="191" y="73" width="18" height="16" rx="3" fill="#C9A840"/><circle cx="200" cy="81" r="4" fill="#A08020"/><g opacity="0.4" fill="#7A4810"><path d="M148 122 L158 112 L168 122 L158 132 Z"/><path d="M192 122 L202 112 L212 122 L202 132 Z"/><path d="M236 122 L246 112 L256 122 L246 132 Z"/><path d="M170 157 L180 147 L190 157 L180 167 Z"/><path d="M214 157 L224 147 L234 157 L224 167 Z"/></g><rect x="75" y="204" width="250" height="8" rx="4" fill="#7A5020"/><text x="200" y="235" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#C9A840" letter-spacing="5">LOUIS VUITTON</text><text x="200" y="250" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#8B6030" letter-spacing="3">SPEEDY 30</text></svg>`,
     brand: "Louis Vuitton",
     model: "Speedy 30",
     score: 94
   }, {
-    img: "https://images.unsplash.com/photo-1547949003-9792a18a2601?q=80&w=900&auto=format&fit=crop",
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" style="width:100%;height:100%;display:block"><rect width="400" height="260" fill="#180800"/><defs><linearGradient id="ghm" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#F07222"/><stop offset="100%" stop-color="#C05010"/></linearGradient></defs><rect x="72" y="78" width="256" height="142" rx="8" fill="url(#ghm)"/><path d="M72 100 L72 78 Q72 70 80 70 L320 70 Q328 70 328 78 L328 100 Z" fill="#D86018"/><path d="M72 78 L72 196 Q72 206 80 206 L320 206 Q328 206 328 196 L328 78" fill="none" stroke="#B84808" stroke-width="1.5" stroke-dasharray="5,3"/><path d="M145 70 C132 48 140 30 200 28 C260 30 268 48 255 70" fill="none" stroke="#8B4010" stroke-width="8" stroke-linecap="round"/><rect x="182" y="60" width="36" height="24" rx="5" fill="#C9A840"/><circle cx="200" cy="68" r="6" fill="#9A7820"/><rect x="194" y="72" width="12" height="8" rx="2" fill="#8A6818"/><line x1="285" y1="70" x2="285" y2="90" stroke="#C9A840" stroke-width="2.5"/><circle cx="285" cy="94" r="6" fill="#C9A840"/><circle cx="285" cy="94" r="3" fill="#9A7820"/><line x1="72" y1="108" x2="72" y2="185" stroke="#A84008" stroke-width="2"/><line x1="328" y1="108" x2="328" y2="185" stroke="#A84008" stroke-width="2"/><text x="200" y="235" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#C9A840" letter-spacing="6">HERMÈS</text><text x="200" y="250" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#8B5020" letter-spacing="3">BIRKIN 30</text></svg>`,
     brand: "Hermès",
     model: "Birkin 30",
     score: 97
   }, {
-    img: "https://images.unsplash.com/photo-1589363358751-ab05797e5629?q=80&w=900&auto=format&fit=crop",
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" style="width:100%;height:100%;display:block"><rect width="400" height="260" fill="#080808"/><defs><linearGradient id="gch" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2C2C2C"/><stop offset="100%" stop-color="#181818"/></linearGradient><pattern id="quilt" x="0" y="0" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M13 0 L26 13 L13 26 L0 13 Z" fill="none" stroke="#383838" stroke-width="0.8"/></pattern></defs><rect x="78" y="58" width="244" height="164" rx="7" fill="url(#gch)"/><rect x="78" y="58" width="244" height="164" rx="7" fill="url(#quilt)"/><path d="M78 58 L78 136 Q78 144 86 144 L314 144 Q322 144 322 136 L322 58 Z" fill="#232323"/><path d="M78 58 L78 136 Q78 144 86 144 L314 144 Q322 144 322 136 L322 58 Z" fill="url(#quilt)" opacity="0.7"/><path d="M78 58 L78 136 Q78 144 86 144 L314 144 Q322 144 322 136 L322 58 Z" fill="none" stroke="#3A3A3A" stroke-width="1"/><circle cx="200" cy="143" r="15" fill="#B89010"/><text x="200" y="148" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#0A0A0A" font-weight="bold">CC</text><path d="M95 60 C82 38 95 20 200 18 C305 20 318 38 305 60" fill="none" stroke="#C9A840" stroke-width="3.5" stroke-dasharray="6,4"/><circle cx="147" cy="32" r="3.5" fill="#C9A840"/><circle cx="200" cy="20" r="3.5" fill="#C9A840"/><circle cx="253" cy="32" r="3.5" fill="#C9A840"/><rect x="78" y="136" width="244" height="86" rx="0 0 7 7" fill="#1C1C1C"/><rect x="78" y="136" width="244" height="86" fill="url(#quilt)"/><text x="200" y="236" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#C9A840" letter-spacing="7">CHANEL</text><text x="200" y="251" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#555" letter-spacing="3">CLASSIC FLAP</text></svg>`,
     brand: "Chanel",
     model: "Classic Flap",
     score: 91
@@ -6492,14 +6388,12 @@ function App() {
       overflow: "hidden",
       position: "relative"
     }
-  }, /*#__PURE__*/React.createElement("img", {
-    src: item.img,
-    alt: item.brand,
+  }, /*#__PURE__*/React.createElement("div", {
     style: {
       width: "100%",
-      height: "100%",
-      objectFit: "cover"
-    }
+      height: "100%"
+    },
+    dangerouslySetInnerHTML: {__html: item.svg}
   }), /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
