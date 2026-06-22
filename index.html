@@ -2611,7 +2611,176 @@ function ReportView({
       lineHeight: 1.75,
       color: C.dark
     }
-  }, report.recommendation))), /*#__PURE__*/React.createElement("div", {
+  }, report.recommendation))), report.resaleValuePHP && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "linear-gradient(135deg,#fdf6e3 0%,#f8f4e8 100%)",
+      borderRadius: 10,
+      padding: "14px 16px",
+      border: "1px solid " + C.goldLight,
+      marginBottom: 14
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      marginBottom: 8
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 18
+    }
+  }, "💰"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 800,
+      color: C.navy,
+      fontSize: 10,
+      letterSpacing: 1.5,
+      textTransform: "uppercase"
+    }
+  }, "Estimated Resale Value — PH Market")), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 22,
+      fontWeight: 900,
+      color: C.gold,
+      marginBottom: 4
+    }
+  }, report.resaleValuePHP), report.resaleNote && /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "0 0 6px",
+      fontSize: 11,
+      color: C.gray,
+      lineHeight: 1.5,
+      fontStyle: "italic"
+    }
+  }, report.resaleNote), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: 0,
+      fontSize: 9.5,
+      color: C.grayLight,
+      lineHeight: 1.4
+    }
+  }, "⚠ Estimated range only. Actual price varies by condition, completeness, and demand on Carousell PH, Facebook Marketplace PH, and Viber groups.")), report.score < 80 && /*#__PURE__*/React.createElement("div", {
+    style: {
+      background: "linear-gradient(135deg," + C.navy + " 0%," + C.navyMid + " 100%)",
+      borderRadius: 12,
+      padding: "18px 20px",
+      marginBottom: 14,
+      border: "1px solid " + C.gold + "60",
+      textAlign: "center"
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 24,
+      marginBottom: 6
+    }
+  }, "🔍"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontWeight: 900,
+      color: C.white,
+      fontSize: 14,
+      marginBottom: 6
+    }
+  }, "Not 100% Sure? Get a Human Expert Review"), /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: "0 0 14px",
+      fontSize: 11.5,
+      color: C.goldLight,
+      lineHeight: 1.6
+    }
+  }, "AI scored this bag at ", report.score, "%. For high-value purchases, have a certified authenticator verify in person."), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 10,
+      justifyContent: "center",
+      flexWrap: "wrap"
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: async function() {
+      var email = window.prompt("Enter your email to receive expert results:", "");
+      if (email === null) return;
+      try {
+        await fetch("/api/expert-review", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            email: email,
+            brand: report.brand,
+            model: report.model,
+            aiScore: report.score,
+            aiResult: report.verdict,
+            notes: "Requested from report view"
+          })
+        });
+        var r = await fetch("/api/create-checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            plan: "expert",
+            email: email
+          })
+        });
+        var d = await r.json();
+        if (d.url) {
+          window.location.href = d.url;
+        } else {
+          alert("Error: " + (d.error || "Could not start checkout"));
+        }
+      } catch(e) {
+        alert("Something went wrong. Please try again.");
+      }
+    },
+    style: {
+      background: "linear-gradient(135deg," + C.gold + " 0%," + C.goldBright + " 100%)",
+      color: C.dark,
+      border: "none",
+      borderRadius: 8,
+      padding: "11px 22px",
+      fontWeight: 800,
+      fontSize: 13,
+      cursor: "pointer",
+      letterSpacing: 0.3
+    }
+  }, "🔍 Request Expert Review — ₱499"), /*#__PURE__*/React.createElement("button", {
+    onClick: async function() {
+      var email = window.prompt("Enter your email for 3 expert reviews:", "");
+      if (email === null) return;
+      try {
+        var r = await fetch("/api/create-checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            plan: "expert3",
+            email: email
+          })
+        });
+        var d = await r.json();
+        if (d.url) {
+          window.location.href = d.url;
+        } else {
+          alert("Error: " + (d.error || "Could not start checkout"));
+        }
+      } catch(e) {
+        alert("Something went wrong. Please try again.");
+      }
+    },
+    style: {
+      background: "transparent",
+      color: C.goldLight,
+      border: "1.5px solid " + C.goldLight + "80",
+      borderRadius: 8,
+      padding: "11px 22px",
+      fontWeight: 700,
+      fontSize: 12,
+      cursor: "pointer"
+    }
+  }, "Bundle: 3 Reviews — ₱1,199"))), /*#__PURE__*/React.createElement("div", {
     style: {
       height: 1,
       background: `linear-gradient(90deg,transparent,${C.goldLight},transparent)`,
@@ -3267,30 +3436,105 @@ function App() {
       payLink: plan.payLink
     });
   };
+  // ── Photo quality checker ──────────────────────────────────────────────────
+  const checkPhotoQuality = (imageUrl) => new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.min(img.width, 300); canvas.height = Math.min(img.height, 300);
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const d = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      let bright = 0, variance = 0;
+      for (let i = 0; i < d.length; i += 4) bright += (d[i] + d[i+1] + d[i+2]) / 3;
+      const avg = bright / (d.length / 4);
+      for (let i = 0; i < d.length; i += 4) variance += Math.pow((d[i]+d[i+1]+d[i+2])/3 - avg, 2);
+      resolve({ brightness: avg, sharpness: Math.sqrt(variance/(d.length/4)), isTooDark: avg < 55, isTooBright: avg > 230, isBlurry: Math.sqrt(variance/(d.length/4)) < 15 });
+    };
+    img.onerror = () => resolve({ brightness: 128, sharpness: 30, isTooDark: false, isTooBright: false, isBlurry: false });
+    img.src = imageUrl;
+  });
+
+  // ── Convert image URL → base64 for Gemini ─────────────────────────────────
+  const imageToBase64 = (imageUrl) => new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const max = 1024;
+      let w = img.width, h = img.height;
+      if (w > max || h > max) { if (w > h) { h = Math.round(h*max/w); w = max; } else { w = Math.round(w*max/h); h = max; } }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      resolve(canvas.toDataURL('image/jpeg', 0.85).split(',')[1]);
+    };
+    img.onerror = reject;
+    img.src = imageUrl;
+  });
+
   const handleAuthenticate = async () => {
     if (!authForm.brand) return;
+
+    // ── Photo quality check before analyzing ──────────────────────────────────
+    let photoBase64 = null;
+    if (authForm.bagImageUrl) {
+      try {
+        const q = await checkPhotoQuality(authForm.bagImageUrl);
+        if (q.isTooDark) { setToast({ type: 'error', msg: '📷 Photo too dark — retake in better lighting for accurate results' }); return; }
+        if (q.isTooBright) { setToast({ type: 'error', msg: '📷 Photo overexposed — avoid direct flash or bright sunlight' }); return; }
+        if (q.isBlurry) { setToast({ type: 'error', msg: '📷 Photo blurry — hold steady or tap to focus before shooting' }); return; }
+        photoBase64 = await imageToBase64(authForm.bagImageUrl);
+      } catch(e) { console.warn('Image processing:', e); }
+    }
+
     setAnalyzing(true);
     setProgress(0);
     const steps = [10, 22, 38, 55, 70, 84, 94, 100];
-    for (const s of steps) {
-      await new Promise(r => setTimeout(r, 290));
-      setProgress(s);
-    }
+    for (const s of steps) { await new Promise(r => setTimeout(r, 290)); setProgress(s); }
+
+    const RESALE_CONTEXT = `RESALE VALUE ESTIMATION (Philippine Peso, current market):
+- Base on current Carousell PH, Facebook Marketplace PH, and Maison de Mode PH pricing
+- Provide a range (low-high) reflecting condition-based variance
+- resaleValuePHP: realistic range string e.g. "₱45,000 – ₱75,000"
+- resaleNote: 1 sentence explaining key factors (condition, completeness, demand)
+- Add disclaimer that values vary by condition, completeness, and market demand`;
+
+    const IMG_PROMPT = photoBase64 ? `\nPHOTO ANALYSIS — examine carefully:
+• Stitching: density, thread color, evenness, saddle stitch vs machine stitch
+• Logo: font weight, spacing, embossing depth, foil stamp alignment
+• Hardware: finish quality, engraving sharpness, weight feel, zipper brand
+• Serial/date code: location, format, font matches brand standards
+• Material: texture consistency, color depth, edge paint quality, lining
+• Overall construction: symmetry, alignment, smell (note if can't assess from photo)
+• Red flags: uneven stitching, wrong fonts, plastic hardware, cheap lining, wrong proportions` : '';
+
+    const authPrompt = `You are a certified luxury bag authenticator with 20+ years of experience specializing in ${authForm.brand}.${IMG_PROMPT}
+
+Brand: ${authForm.brand} | Model: ${authForm.model || 'unspecified'}
+${photoBase64 ? 'Analyze the provided photo AND brand/model data.' : 'Generate knowledge-based analysis for this brand/model.'}
+
+${RESALE_CONTEXT}
+
+IDENTIFIER RULES:
+- LV pre-2021: Date Code | LV post-2021: Microchip (RFID) | Hermès: Blind Stamp | Most brands post-1985: Serial Number | Pre-serial era: None (Vintage - not issued)
+- releaseYear: actual first release year of this specific model/line
+- era: Vintage <1990 | Classic 1990-2004 | Contemporary 2005-2019 | Modern 2020+
+- score: ${photoBase64 ? 'strict photo-based score — be honest, penalize red flags' : '50-95 based on brand knowledge'}
+- result: GENUINE ≥85 | SUSPICIOUS 55-84 | LIKELY FAKE <55
+
+Reply ONLY in raw JSON, no markdown:
+{"score":<int>,"result":"<GENUINE|SUSPICIOUS|LIKELY FAKE>","bagName":"<full official name>","releaseYear":<year>,"era":"<era>","isVintage":<bool>,"identifierType":"<type>","identifierNote":"<specific finding>","stitching":"<Excellent|Good|Fair|Poor>","hardware":"<Excellent|Good|Fair|Poor>","logo":"<Authentic|Minor deviation|Suspicious|Fake>","serial":"<Valid|Unverified|Suspicious|Invalid|N/A - Vintage>","material":"<Premium|Quality|Standard|Substandard>","resaleValuePHP":"<₱X – ₱Y>","resaleNote":"<1 sentence>","summary":"<2-3 sentence analysis>","recommendation":"<1 sentence advice>"}`;
+
     let rep;
     try {
-      const res = await fetch("/.netlify/functions/claude", {
+      const msgContent = photoBase64
+        ? [{ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: photoBase64 } }, { type: 'text', text: authPrompt }]
+        : authPrompt;
+
+      const res = await fetch("/api/claude", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1200,
-          messages: [{
-            role: "user",
-            content: `You are a certified luxury bag authenticator for VraiTag. Generate a realistic, detailed authentication report for Brand: ${authForm.brand}, Model: ${authForm.model || "unspecified"}.\n\nIMPORTANT RULES:\n- releaseYear: the actual year this specific model/line was first released by the brand\n- era: "Vintage" if releaseYear < 1990, "Classic" if 1990-2004, "Contemporary" if 2005-2019, "Modern" if 2020+\n- isVintage: true if releaseYear < 1990\n- identifierType: based on the brand and year — use "None (Vintage - not issued)" for pre-serial era bags, "Date Code" for LV pre-2021, "Serial Number" for most brands post-1985, "Microchip (RFID)" for LV post-2021 and some modern Chanel/Dior, "Blind Stamp" for Hermès\n- identifierNote: specific finding e.g. "Date code SR1009 located on interior leather tab" or "No serial code — consistent with vintage production era (pre-1982)" or "RFID chip detected and verified"\n- bagName: the full confirmed official name of the bag (e.g. "Neverfull MM in Damier Ebene Canvas")\n\nReply ONLY in raw JSON (no markdown, no code fences):\n{"score":<int 40-98>,"result":"<GENUINE|SUSPICIOUS|LIKELY FAKE>","bagName":"<full official bag name>","releaseYear":<year int>,"era":"<Vintage|Classic|Contemporary|Modern>","isVintage":<bool>,"identifierType":"<None (Vintage - not issued)|Date Code|Serial Number|Microchip (RFID)|Blind Stamp>","identifierNote":"<specific finding 1 sentence>","stitching":"<Excellent|Good|Fair|Poor>","hardware":"<Excellent|Good|Fair|Poor>","logo":"<Authentic|Minor deviation|Suspicious|Fake>","serial":"<Valid|Unverified|Suspicious|Invalid|N/A - Vintage>","material":"<Premium|Quality|Standard|Substandard>","summary":"<2-3 sentence expert analysis>","recommendation":"<1 sentence advice>"}`
-          }]
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ model: "gemini-2.0-flash", max_tokens: 1200, messages: [{ role: "user", content: msgContent }] })
       });
       const json = await res.json();
       const parsed = JSON.parse(json.content?.map(c => c.text || "").join("").replace(/```json|```/g, "").trim());
@@ -6533,7 +6777,7 @@ function App() {
       fontSize: 28,
       fontWeight: 900,
       color: C.dark
-    }
+     }
   }, fmt(plan.price, currency), /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: 13,
@@ -6735,29 +6979,6 @@ function App() {
       alignItems: "center",
       gap: 7,
       background: "#E60023",
-      color: "#fff",
-      borderRadius: 30,
-      padding: "9px 18px",
-      fontWeight: 800,
-      fontSize: 13,
-      textDecoration: "none"
-    }
-  }, /*#__PURE__*/React.createElement("svg", {
-    width: "16",
-    height: "16",
-    viewBox: "0 0 24 24",
-    fill: "#fff"
-  }, /*#__PURE__*/React.createElement("path", {
-    d: "M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"
-  })), "missieazucena"), /*#__PURE__*/React.createElement("a", {
-    href: "https://www.instagram.com/momshiemissie/",
-    target: "_blank",
-    rel: "noopener noreferrer",
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 7,
-      background: "linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)",
       color: "#fff",
       borderRadius: 30,
       padding: "9px 18px",
