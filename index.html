@@ -610,7 +610,7 @@ const T = {
     hero: "The definitive stamp of luxury truth.",
     sub: "AI-powered luxury bag authentication trusted by collectors in 150+ countries.",
     start: "Authenticate Free",
-    plans: "Plans & Pricing",
+    plans: "Packages",
     dashboard: "Dashboard",
     myReports: "My Reports",
     compare: "Compare Bags",
@@ -6101,7 +6101,7 @@ Reply ONLY in raw JSON, no markdown:
   return /*#__PURE__*/React.createElement("div", {
     style: {
       minHeight: "100vh",
-      background: `linear-gradient(170deg,${C.cream} 0%,#eef5ee 40%,#e8f2e8 70%,${C.cream} 100%)`,
+      background: "#FAFAF7",
       overflow: "hidden",
       position: "relative"
     }
@@ -6118,7 +6118,16 @@ Reply ONLY in raw JSON, no markdown:
         @keyframes vtBrandPulse{0%,100%{text-shadow:0 0 30px rgba(26,92,58,0.4),0 2px 16px rgba(13,27,42,0.3)}50%{text-shadow:0 0 50px rgba(26,92,58,0.65),0 2px 24px rgba(13,27,42,0.45)}}
         .vt-hero-title{animation:fadeInUp 0.7s ease both;}
         .vt-hero-sub{animation:fadeInUp 0.7s ease 0.15s both;}
-        `), /*#__PURE__*/React.createElement("nav", {
+        .vt-hero-img-overlay{position:absolute;inset:0;background:linear-gradient(170deg,rgba(13,27,42,0.55) 0%,rgba(13,27,42,0.92) 100%);pointer-events:none;}
+        .vt-hero-btn-gold{background:var(--gold,#C9A84C);color:#0D1B2A;border:none;border-radius:3px;padding:16px 38px;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:0.5px;font-family:'Nunito',sans-serif;transition:opacity 0.2s;}
+        .vt-hero-btn-gold:hover{opacity:0.88;}
+        .vt-hero-btn-outline{background:rgba(250,250,247,0.08);color:#FAFAF7;border:1px solid rgba(250,250,247,0.3);border-radius:3px;padding:14px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Nunito',sans-serif;transition:background 0.2s;}
+        .vt-hero-btn-outline:hover{background:rgba(250,250,247,0.14);}
+        .vt-cta-btn-gold{background:#C9A84C;color:#0D1B2A;border:none;border-radius:3px;padding:16px 38px;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:0.5px;font-family:'Nunito',sans-serif;transition:opacity 0.2s;}
+        .vt-cta-btn-gold:hover{opacity:0.88;}
+        .vt-story-btn-navy{background:#0D1B2A;color:#FAFAF7;border:none;border-radius:3px;padding:13px 28px;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.5px;font-family:'Nunito',sans-serif;}
+        @media(max-width:640px){.story-grid{grid-template-columns:1fr!important}.steps-grid{grid-template-columns:1fr!important}.cta-row{flex-direction:column!important;align-items:flex-start!important}}
+        \`), /*#__PURE__*/React.createElement("nav", {
     style: navStyle
   }, /*#__PURE__*/React.createElement(Logo, {
     size: 32
@@ -6179,355 +6188,144 @@ Reply ONLY in raw JSON, no markdown:
     color: C.green,
     onClick: () => setPage("plans")
   }, tr(lang, "signup"))))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "relative",
-      overflow: "hidden",
-      minHeight: "92vh",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-    }
-  }, /*#__PURE__*/React.createElement(BagCarousel, null), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "relative",
-      zIndex: 2,
-      textAlign: "center",
-      padding: "60px 24px 40px",
-      maxWidth: 720,
-      margin: "0 auto"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "vt-logo-glow",
-    style: {
-      marginBottom: 18,
-      display: "inline-block"
-    }
-  }, /*#__PURE__*/React.createElement(Logo, {
-    size: 86,
-    showText: false
-  })), /*#__PURE__*/React.createElement("div", {
-    className: "vt-brand-name",
-    style: {
-      fontSize: "clamp(52px,10vw,108px)",
-      fontWeight: 900,
-      lineHeight: 1,
-      letterSpacing: 6,
-      fontFamily: "'Cormorant Garamond',Georgia,serif",
-      background: `linear-gradient(135deg,${C.green} 0%,${C.goldBright} 45%,${C.green} 100%)`,
-      backgroundSize: "200% 200%",
-      WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent",
-      animation: "vtBrandPulse 3s ease-in-out infinite, gradientShift 4s ease infinite",
-      display: "block"
-    }
-  }, "VraiTag"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: "clamp(13px,2.5vw,19px)",
-      fontWeight: 700,
-      color: C.goldBright,
-      letterSpacing: 4,
-      textTransform: "uppercase",
-      marginTop: 8,
-      marginBottom: 20,
-      opacity: 0.9
-    }
-  }, "Luxury Authentication"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "inline-block",
-      background: `${C.green}18`,
-      border: `1px solid ${C.green}55`,
-      borderRadius: 30,
-      padding: "5px 18px",
-      marginBottom: 16,
-      fontSize: 12,
-      fontWeight: 700,
-      color: C.green,
-      letterSpacing: 1.5
-    }
-  }, "✦ TRUSTED BY COLLECTORS IN 150+ COUNTRIES ✦"), /*#__PURE__*/React.createElement("h1", {
-    className: "vt-hero-title",
-    style: {
-      fontSize: "clamp(22px,4vw,42px)",
-      fontWeight: 700,
-      lineHeight: 1.15,
-      margin: "0 0 14px",
-      color: C.navy,
-      fontFamily: "'Cormorant Garamond',Georgia,serif",
-      fontStyle: "italic"
-    }
-  }, tr(lang, "hero")), /*#__PURE__*/React.createElement("p", {
-    className: "vt-hero-sub",
-    style: {
-      color: C.gray,
-      fontSize: 17,
-      maxWidth: 520,
-      margin: "0 auto 34px",
-      lineHeight: 1.6
-    }
-  }, tr(lang, "sub")), /*#__PURE__*/React.createElement("div", {
-    className: "vt-hero-btns",
-    style: {
-      display: "flex",
-      gap: 14,
-      justifyContent: "center",
-      flexWrap: "wrap"
-    }
-  }, /*#__PURE__*/React.createElement(Btn, {
-    color: C.green,
-    style: {
-      fontSize: 16,
-      padding: "14px 34px",
-      boxShadow: `0 6px 22px ${C.green}55`
-    },
-    onClick: () => setPage("authenticate")
-  }, "🔍 ", tr(lang, "start")), /*#__PURE__*/React.createElement(Btn, {
-    outline: true,
-    color: C.navy,
-    style: {
-      fontSize: 15,
-      padding: "14px 26px",
-      background: "rgba(255,255,255,0.7)"
-    },
-    onClick: () => setPage("plans")
-  }, "View Plans ↓")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      gap: 0,
-      justifyContent: "center",
-      marginTop: 36,
-      flexWrap: "wrap",
-      alignItems: "center"
-    }
-  }, ["AI-Powered Analysis", "Results in 60 Seconds", "98% Accuracy", "150+ Countries", "24/7 VIP Support"].map((text, i) => /*#__PURE__*/React.createElement("span", {
-    key: text,
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 6,
-      fontSize: 12,
-      color: "rgba(255,255,255,0.88)",
-      fontWeight: 700,
-      padding: "4px 14px",
-      letterSpacing: 0.5
-    }
-  }, i > 0 && /*#__PURE__*/React.createElement("span", {
-    style: {
-      color: C.goldBright,
-      margin: "0 4px"
-    }
-  }, "·"), text))))), /*#__PURE__*/React.createElement(StatsBar, null), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: "56px 20px",
-      position: "relative",
-      zIndex: 1
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      maxWidth: 880,
-      margin: "0 auto"
-    }
-  }, /*#__PURE__*/React.createElement(Card, {
-    style: {
-      padding: 0,
-      overflow: "hidden",
-      border: `1.5px solid ${C.goldLight}`,
-      boxShadow: `0 8px 36px ${C.rose}25`
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "grid",
-      gridTemplateColumns: "minmax(0,220px) 1fr",
-      alignItems: "stretch"
-    },
-    className: "about-grid"
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: `linear-gradient(150deg,${C.navy},${C.navyMid} 50%,${C.navyLight})`,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "28px 16px",
-      minHeight: 260,
-      position: "relative",
-      overflow: "hidden"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      inset: 0,
-      backgroundImage: "radial-gradient(circle at 25% 25%, rgba(255,255,255,0.12) 0, transparent 35%)"
-    }
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "relative",
-      marginBottom: 16,
-      borderRadius: 18,
-      overflow: "hidden",
-      boxShadow: "0 8px 32px rgba(0,0,0,0.45)"
-    }
-  }, /*#__PURE__*/React.createElement(MonogramMA, null)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: "#fff",
-      fontWeight: 800,
-      fontSize: 16,
-      textAlign: "center",
-      position: "relative",
-      letterSpacing: 0.5
-    }
-  }, "Maricriz Azucena"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: C.goldBright,
-      fontSize: 11,
-      fontWeight: 700,
-      letterSpacing: 2,
-      textTransform: "uppercase",
-      marginTop: 4,
-      textAlign: "center",
-      position: "relative"
-    }
-  }, "Founder, VraiTag"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 10,
-      fontSize: 18,
-      position: "relative",
-      letterSpacing: 2
-    }
-  }, "🌿 💛 👜")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: "28px 30px",
-      overflowY: "auto",
-      maxHeight: 520
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 11,
-      fontWeight: 800,
-      color: C.navy,
-      letterSpacing: 2.5,
-      marginBottom: 6
-    }
-  }, "OUR STORY"), /*#__PURE__*/React.createElement("h2", {
-    style: {
-      margin: "0 0 4px",
-      fontSize: 20,
-      fontWeight: 900,
-      color: C.dark,
-      lineHeight: 1.25
-    }
-  }, "VraiTag™ — Where Authenticity Meets Confidence"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 12,
-      fontWeight: 700,
-      color: C.gold,
-      letterSpacing: 0.5,
-      marginBottom: 12
-    }
-  }, "The Future of Luxury Authentication Starts with Trust"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: C.gray,
-      fontSize: 13.5,
-      lineHeight: 1.8,
-      margin: "0 0 10px"
-    }
-  }, "In a world where luxury resale is booming and counterfeits are becoming indistinguishable from the real thing — ", /*#__PURE__*/React.createElement("b", {
-    style: {
-      color: C.dark
-    }
-  }, "how do you know you can trust what you're buying?")), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: C.gray,
-      fontSize: 13.5,
-      lineHeight: 1.8,
-      margin: "0 0 10px"
-    }
-  }, /*#__PURE__*/React.createElement("b", {
-    style: {
-      color: C.dark
-    }
-  }, "VraiTag was created to answer that question."), " Founded by ", /*#__PURE__*/React.createElement("b", {
-    style: {
-      color: C.navy
-    }
-  }, "Maricriz Azucena"), ", a Workforce Intelligence Innovator and AI Solutions Creator, VraiTag was born from a personal experience shared by millions of luxury buyers worldwide."), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: C.gray,
-      fontSize: 13.5,
-      lineHeight: 1.8,
-      margin: "0 0 10px"
-    }
-  }, "The name ", /*#__PURE__*/React.createElement("b", {
-    style: {
-      color: C.dark
-    }
-  }, "VraiTag"), " comes from the French ", /*#__PURE__*/React.createElement("em", null, "\"Vrai\""), " — meaning ", /*#__PURE__*/React.createElement("em", null, "True, Real, Genuine"), " — combined with ", /*#__PURE__*/React.createElement("em", null, "\"Tag\""), ", the mark of verification. Together: the ", /*#__PURE__*/React.createElement("em", null, "True Mark"), "."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      background: C.navySoft,
-      borderRadius: 12,
-      padding: "12px 16px",
-      margin: "12px 0",
-      borderLeft: `4px solid ${C.gold}`
-    }
-  }, /*#__PURE__*/React.createElement("p", {
-    style: {
-      margin: 0,
-      fontStyle: "italic",
-      color: C.navy,
-      fontSize: 13.5,
-      fontWeight: 600
-    }
-  }, "\"Every luxury piece tells a story. VraiTag ensures it's the truth.\"")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 14
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontWeight: 800,
-      color: C.navy,
-      fontSize: 12,
-      letterSpacing: 1,
-      marginBottom: 6
-    }
-  }, "🎯 OUR MISSION"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: C.gray,
-      fontSize: 13,
-      lineHeight: 1.7,
-      margin: "0 0 10px"
-    }
-  }, "To democratize luxury authentication — making expert-level verification accessible, affordable, and instant for every buyer, seller, and collector worldwide."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontWeight: 800,
-      color: C.navy,
-      fontSize: 12,
-      letterSpacing: 1,
-      marginBottom: 6
-    }
-  }, "🌟 OUR VISION"), /*#__PURE__*/React.createElement("p", {
-    style: {
-      color: C.gray,
-      fontSize: 13,
-      lineHeight: 1.7,
-      margin: "0 0 12px"
-    }
-  }, "A world where every luxury transaction is built on verified trust — not a privilege of the few, but a right of all."), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "flex",
-      gap: 8,
-      flexWrap: "wrap"
-    }
-  }, ["AI-Powered Intelligence", "Accessible Expertise", "Affordable Confidence", "Sustainable Fashion", "Trust-Centered Innovation"].map(v => /*#__PURE__*/React.createElement("span", {
-    key: v,
-    style: {
-      background: C.navySoft,
-      border: `1px solid ${C.goldLight}`,
-      borderRadius: 20,
-      padding: "4px 12px",
-      fontSize: 11,
-      fontWeight: 700,
-      color: C.navy
-    }
-  }, v)))))))), /*#__PURE__*/React.createElement("style", null, `@media(max-width:640px){.about-grid{grid-template-columns:1fr!important}}`)), /*#__PURE__*/React.createElement(Testimonials, null), /*#__PURE__*/React.createElement(WhyVraiTag, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement("div", {
+  style: {
+    position: "relative",
+    minHeight: "92vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "#0D1B2A",
+    overflow: "hidden"
+  }
+},
+/*#__PURE__*/React.createElement("div", {
+  style: {
+    position: "absolute",
+    inset: 0,
+    backgroundImage: "url('https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=1600&q=80')",
+    backgroundSize: "cover",
+    backgroundPosition: "center 30%",
+    opacity: 0.28
+  }
+}),
+/*#__PURE__*/React.createElement("div", {className: "vt-hero-img-overlay"}),
+/*#__PURE__*/React.createElement("div", {
+  style: {
+    position: "relative",
+    zIndex: 2,
+    textAlign: "center",
+    padding: "80px 24px 60px",
+    maxWidth: 820,
+    margin: "0 auto"
+  }
+},
+/*#__PURE__*/React.createElement("div", {
+  style: {fontSize:11, fontWeight:700, letterSpacing:5, color:C.gold, marginBottom:28, textTransform:"uppercase"}
+}, "Luxury Authentication · Est. 2024"),
+/*#__PURE__*/React.createElement("h1", {
+  className: "vt-hero-title",
+  style: {
+    fontFamily: "'Cormorant Garamond', Georgia, serif",
+    fontSize: "clamp(38px,6vw,82px)",
+    fontWeight: 600,
+    lineHeight: 1.1,
+    color: "#FAFAF7",
+    margin: "0 0 28px",
+    letterSpacing: -0.5
+  }
+}, "Certainty is the ultimate ", /*#__PURE__*/React.createElement("em", {style:{color:C.gold, fontStyle:"italic"}}, "luxury"), "."),
+/*#__PURE__*/React.createElement("p", {
+  className: "vt-hero-sub",
+  style: {
+    color: "rgba(250,250,247,0.68)",
+    fontSize: "clamp(15px,2vw,18px)",
+    lineHeight: 1.7,
+    maxWidth: 500,
+    margin: "0 auto 44px"
+  }
+}, "AI-powered authentication for the world’s most coveted luxury goods. Trusted by collectors, verified by experts."),
+/*#__PURE__*/React.createElement("div", {
+  style: {display:"flex", gap:14, justifyContent:"center", flexWrap:"wrap", marginBottom:52}
+},
+/*#__PURE__*/React.createElement("button", {
+  className: "vt-hero-btn-gold",
+  onClick: () => setPage("authenticate")
+}, "Authenticate A Bag →"),
+/*#__PURE__*/React.createElement("button", {
+  className: "vt-hero-btn-outline",
+  onClick: () => setPage("plans")
+}, "View Packages")),
+/*#__PURE__*/React.createElement("div", {
+  style: {display:"flex", gap:0, justifyContent:"center", alignItems:"center", flexWrap:"wrap"}
+}, ["99.8% Accuracy", "45+ Maisons", "14K+ Verified"].map((text, i) => /*#__PURE__*/React.createElement("span", {
+  key: text,
+  style: {
+    display: "flex",
+    alignItems: "center",
+    gap: 6,
+    fontSize: 12,
+    color: "rgba(250,250,247,0.65)",
+    fontWeight: 600,
+    padding: "4px 18px",
+    letterSpacing: 1
+  }
+}, i > 0 && /*#__PURE__*/React.createElement("span", {style:{color:C.gold, margin:"0 4px", fontSize:16}}, "·"), text))))), /*#__PURE__*/React.createElement(StatsBar, null), /*#__PURE__*/React.createElement("div", {
+  style: {padding:"72px 20px 56px", background:"#FAFAF7", position:"relative", zIndex:1}
+},
+  /*#__PURE__*/React.createElement("div", {style:{maxWidth:860, margin:"0 auto"}},
+    /*#__PURE__*/React.createElement("div", {style:{textAlign:"center", marginBottom:52}},
+      /*#__PURE__*/React.createElement("div", {style:{fontSize:11, fontWeight:700, letterSpacing:4, color:C.gold, marginBottom:14, textTransform:"uppercase"}}, "Our Story"),
+      /*#__PURE__*/React.createElement("h2", {style:{fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:"clamp(26px,4vw,46px)", fontWeight:600, color:C.navy, margin:"0 0 16px", lineHeight:1.2}}, "Born from a question that deserved a better answer."),
+      /*#__PURE__*/React.createElement("p", {style:{color:C.gray, fontSize:16, lineHeight:1.75, maxWidth:560, margin:"0 auto"}}, "VraiTag was founded by Maricriz Azucena — a Workforce Intelligence Innovator who believed that knowing the truth about what you carry should never be a luxury reserved for the few.")
+    ),
+    /*#__PURE__*/React.createElement("div", {style:{display:"grid", gridTemplateColumns:"1fr 1fr", gap:40, alignItems:"center"}, className:"story-grid"},
+      /*#__PURE__*/React.createElement("div", {style:{borderRadius:4, overflow:"hidden", aspectRatio:"4/5", background:"#0D1B2A", maxHeight:480}},
+        /*#__PURE__*/React.createElement("img", {
+          src:"https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&q=80",
+          alt:"Luxury bag",
+          style:{width:"100%", height:"100%", objectFit:"cover", display:"block"}
+        })
+      ),
+      /*#__PURE__*/React.createElement("div", {style:{padding:"8px 0"}},
+        /*#__PURE__*/React.createElement("div", {style:{width:36, height:1, background:C.gold, marginBottom:24}}),
+        /*#__PURE__*/React.createElement("p", {style:{color:C.gray, fontSize:15, lineHeight:1.85, margin:"0 0 18px"}},
+          "The name ", /*#__PURE__*/React.createElement("em", {style:{color:C.navy}}, "VraiTag"), " comes from the French “Vrai” — meaning True, Real, Genuine — combined with “Tag”, the mark of verification. Together: the ", /*#__PURE__*/React.createElement("strong", {style:{color:C.navy}}, "True Mark"), "."
+        ),
+        /*#__PURE__*/React.createElement("p", {style:{color:C.gray, fontSize:15, lineHeight:1.85, margin:"0 0 24px"}},
+          "In a world where luxury resale is booming and counterfeits are indistinguishable from originals, we built the intelligence to tell the difference."
+        ),
+        /*#__PURE__*/React.createElement("div", {style:{borderLeft:"3px solid "+C.gold, paddingLeft:18, marginBottom:28}},
+          /*#__PURE__*/React.createElement("p", {style:{margin:0, fontStyle:"italic", color:C.navy, fontSize:14, fontWeight:600, lineHeight:1.65}}, "“Every luxury piece tells a story. VraiTag ensures it’s the truth.”"),
+          /*#__PURE__*/React.createElement("div", {style:{marginTop:8, fontSize:11, color:C.gold, fontWeight:700, letterSpacing:1.5}}, "— Maricriz Azucena, Founder")
+        ),
+        /*#__PURE__*/React.createElement("button", {
+          className: "vt-story-btn-navy",
+          onClick:()=>setPage("authenticate")
+        }, "Authenticate A Bag →")
+      )
+    )
+  )
+), /*#__PURE__*/React.createElement("div", {
+  style: {background:C.navy, padding:"72px 20px", position:"relative", zIndex:1}
+},
+  /*#__PURE__*/React.createElement("div", {style:{maxWidth:900, margin:"0 auto"}},
+    /*#__PURE__*/React.createElement("div", {style:{textAlign:"center", marginBottom:52}},
+      /*#__PURE__*/React.createElement("div", {style:{fontSize:11, fontWeight:700, letterSpacing:5, color:C.gold, marginBottom:14, textTransform:"uppercase"}}, "The Process"),
+      /*#__PURE__*/React.createElement("h2", {style:{fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:"clamp(28px,4vw,48px)", fontWeight:600, color:"#FAFAF7", margin:0, lineHeight:1.2}}, "Three steps to certainty.")
+    ),
+    /*#__PURE__*/React.createElement("div", {style:{display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:36}, className:"steps-grid"},
+      [{num:"01", title:"Submit", desc:"Upload photos of your bag — hardware, stitching, lining, date codes. Our system examines every detail."},
+       {num:"02", title:"Examine", desc:"Our AI cross-references against a database of 14,000+ authenticated pieces across 45+ maisons."},
+       {num:"03", title:"Certify", desc:"Receive a signed certificate of authenticity — or a detailed counterfeit report — within minutes."}
+      ].map(step => /*#__PURE__*/React.createElement("div", {key:step.num, style:{textAlign:"center", padding:"8px"}},
+        /*#__PURE__*/React.createElement("div", {style:{fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:56, fontWeight:700, color:"rgba(201,168,76,0.22)", lineHeight:1, marginBottom:16}}, step.num),
+        /*#__PURE__*/React.createElement("div", {style:{width:32, height:1, background:C.gold, margin:"0 auto 16px"}}),
+        /*#__PURE__*/React.createElement("h3", {style:{fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:22, fontWeight:600, color:"#FAFAF7", margin:"0 0 12px", letterSpacing:0.5}}, step.title),
+        /*#__PURE__*/React.createElement("p", {style:{color:"rgba(250,250,247,0.6)", fontSize:14, lineHeight:1.75, margin:0}}, step.desc)
+      ))
+    )
+  )
+),, /*#__PURE__*/React.createElement(Testimonials, null), /*#__PURE__*/React.createElement(WhyVraiTag, null), /*#__PURE__*/React.createElement(FAQ, null), /*#__PURE__*/React.createElement("div", {
     style: {
       background: `linear-gradient(135deg,${C.navy} 0%,${C.navyMid} 100%)`,
       position: "relative",
@@ -6567,135 +6365,6 @@ Reply ONLY in raw JSON, no markdown:
     }
   }, "— The VraiTag Authentication Team"))), /*#__PURE__*/React.createElement("div", {
     style: {
-      maxWidth: 1080,
-      margin: "0 auto",
-      padding: "52px 20px",
-      position: "relative",
-      zIndex: 1
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: "center",
-      marginBottom: 28
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 11,
-      fontWeight: 800,
-      color: C.navy,
-      letterSpacing: 3,
-      marginBottom: 8
-    }
-  }, "FROM THE ARCHIVE"), /*#__PURE__*/React.createElement("h2", {
-    style: {
-      fontSize: 28,
-      fontWeight: 800,
-      color: C.dark,
-      margin: 0
-    }
-  }, "Recently Authenticated")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))",
-      gap: 20
-    }
-  }, [{
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" style="width:100%;height:100%;display:block"><rect width="400" height="260" fill="#1C0F05"/><defs><linearGradient id="glv" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#D4A56A"/><stop offset="100%" stop-color="#9A6830"/></linearGradient></defs><path d="M75 92 Q75 72 95 72 L305 72 Q325 72 325 92 L325 196 Q325 212 305 212 L95 212 Q75 212 75 196 Z" fill="url(#glv)"/><path d="M75 92 Q75 72 95 72 L305 72 Q325 72 325 92 L325 196 Q325 212 305 212 L95 212 Q75 212 75 196 Z" fill="none" stroke="#7A5020" stroke-width="1.5"/><path d="M138 72 C138 42 150 26 163 26 C176 26 186 42 186 72" fill="none" stroke="#6A4010" stroke-width="7" stroke-linecap="round"/><path d="M214 72 C214 42 224 26 237 26 C250 26 262 42 262 72" fill="none" stroke="#6A4010" stroke-width="7" stroke-linecap="round"/><rect x="75" y="79" width="250" height="6" rx="3" fill="#8B6020"/><rect x="191" y="73" width="18" height="16" rx="3" fill="#C9A840"/><circle cx="200" cy="81" r="4" fill="#A08020"/><g opacity="0.4" fill="#7A4810"><path d="M148 122 L158 112 L168 122 L158 132 Z"/><path d="M192 122 L202 112 L212 122 L202 132 Z"/><path d="M236 122 L246 112 L256 122 L246 132 Z"/><path d="M170 157 L180 147 L190 157 L180 167 Z"/><path d="M214 157 L224 147 L234 157 L224 167 Z"/></g><rect x="75" y="204" width="250" height="8" rx="4" fill="#7A5020"/><text x="200" y="235" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#C9A840" letter-spacing="5">LOUIS VUITTON</text><text x="200" y="250" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#8B6030" letter-spacing="3">SPEEDY 30</text></svg>`,
-    brand: "Louis Vuitton",
-    model: "Speedy 30",
-    score: 94
-  }, {
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" style="width:100%;height:100%;display:block"><rect width="400" height="260" fill="#180800"/><defs><linearGradient id="ghm" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#F07222"/><stop offset="100%" stop-color="#C05010"/></linearGradient></defs><rect x="72" y="78" width="256" height="142" rx="8" fill="url(#ghm)"/><path d="M72 100 L72 78 Q72 70 80 70 L320 70 Q328 70 328 78 L328 100 Z" fill="#D86018"/><path d="M72 78 L72 196 Q72 206 80 206 L320 206 Q328 206 328 196 L328 78" fill="none" stroke="#B84808" stroke-width="1.5" stroke-dasharray="5,3"/><path d="M145 70 C132 48 140 30 200 28 C260 30 268 48 255 70" fill="none" stroke="#8B4010" stroke-width="8" stroke-linecap="round"/><rect x="182" y="60" width="36" height="24" rx="5" fill="#C9A840"/><circle cx="200" cy="68" r="6" fill="#9A7820"/><rect x="194" y="72" width="12" height="8" rx="2" fill="#8A6818"/><line x1="285" y1="70" x2="285" y2="90" stroke="#C9A840" stroke-width="2.5"/><circle cx="285" cy="94" r="6" fill="#C9A840"/><circle cx="285" cy="94" r="3" fill="#9A7820"/><line x1="72" y1="108" x2="72" y2="185" stroke="#A84008" stroke-width="2"/><line x1="328" y1="108" x2="328" y2="185" stroke="#A84008" stroke-width="2"/><text x="200" y="235" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#C9A840" letter-spacing="6">HERMÈS</text><text x="200" y="250" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#8B5020" letter-spacing="3">BIRKIN 30</text></svg>`,
-    brand: "Hermès",
-    model: "Birkin 30",
-    score: 97
-  }, {
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" style="width:100%;height:100%;display:block"><rect width="400" height="260" fill="#080808"/><defs><linearGradient id="gch" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2C2C2C"/><stop offset="100%" stop-color="#181818"/></linearGradient><pattern id="quilt" x="0" y="0" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M13 0 L26 13 L13 26 L0 13 Z" fill="none" stroke="#383838" stroke-width="0.8"/></pattern></defs><rect x="78" y="58" width="244" height="164" rx="7" fill="url(#gch)"/><rect x="78" y="58" width="244" height="164" rx="7" fill="url(#quilt)"/><path d="M78 58 L78 136 Q78 144 86 144 L314 144 Q322 144 322 136 L322 58 Z" fill="#232323"/><path d="M78 58 L78 136 Q78 144 86 144 L314 144 Q322 144 322 136 L322 58 Z" fill="url(#quilt)" opacity="0.7"/><path d="M78 58 L78 136 Q78 144 86 144 L314 144 Q322 144 322 136 L322 58 Z" fill="none" stroke="#3A3A3A" stroke-width="1"/><circle cx="200" cy="143" r="15" fill="#B89010"/><text x="200" y="148" text-anchor="middle" font-family="Georgia,serif" font-size="13" fill="#0A0A0A" font-weight="bold">CC</text><path d="M95 60 C82 38 95 20 200 18 C305 20 318 38 305 60" fill="none" stroke="#C9A840" stroke-width="3.5" stroke-dasharray="6,4"/><circle cx="147" cy="32" r="3.5" fill="#C9A840"/><circle cx="200" cy="20" r="3.5" fill="#C9A840"/><circle cx="253" cy="32" r="3.5" fill="#C9A840"/><rect x="78" y="136" width="244" height="86" rx="0 0 7 7" fill="#1C1C1C"/><rect x="78" y="136" width="244" height="86" fill="url(#quilt)"/><text x="200" y="236" text-anchor="middle" font-family="Georgia,serif" font-size="11" fill="#C9A840" letter-spacing="7">CHANEL</text><text x="200" y="251" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="#555" letter-spacing="3">CLASSIC FLAP</text></svg>`,
-    brand: "Chanel",
-    model: "Classic Flap",
-    score: 91
-  }].map(item => /*#__PURE__*/React.createElement("div", {
-    key: item.brand + item.model,
-    className: "vt-card-hover",
-    style: {
-      borderRadius: 16,
-      overflow: "hidden",
-      boxShadow: `0 4px 20px ${C.rose}20`,
-      border: `1.5px solid ${C.goldLight}`,
-      background: "#fff",
-      cursor: "pointer"
-    },
-    onClick: () => setPage("authenticate")
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      height: 200,
-      overflow: "hidden",
-      position: "relative"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: "100%",
-      height: "100%"
-    },
-    dangerouslySetInnerHTML: {__html: item.svg}
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: "absolute",
-      top: 12,
-      right: 12,
-      background: C.green,
-      color: "#fff",
-      borderRadius: 20,
-      padding: "4px 12px",
-      fontSize: 11,
-      fontWeight: 800
-    }
-  }, "✓ GENUINE")), /*#__PURE__*/React.createElement("div", {
-    style: {
-      padding: "14px 16px",
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
-    }
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontWeight: 800,
-      color: C.dark,
-      fontSize: 14
-    }
-  }, item.brand), /*#__PURE__*/React.createElement("div", {
-    style: {
-      color: C.gray,
-      fontSize: 12
-    }
-  }, item.model)), /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: "center"
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontWeight: 900,
-      color: C.green,
-      fontSize: 20
-    }
-  }, item.score, "%"), /*#__PURE__*/React.createElement("div", {
-    style: {
-      fontSize: 10,
-      color: C.gray
-    }
-  }, "AUTHENTIC")))))), /*#__PURE__*/React.createElement("div", {
-    style: {
-      textAlign: "center",
-      marginTop: 28
-    }
-  }, /*#__PURE__*/React.createElement(Btn, {
-    color: C.navy,
-    onClick: () => setPage("authenticate"),
-    style: {
-      padding: "12px 32px"
-    }
-  }, "Authenticate Your Bag →"))), /*#__PURE__*/React.createElement("div", {
-    style: {
       background: C.navySoft,
       padding: "52px 20px",
       position: "relative",
@@ -6719,20 +6388,20 @@ Reply ONLY in raw JSON, no markdown:
       letterSpacing: 3,
       marginBottom: 8
     }
-  }, "PLANS & PRICING"), /*#__PURE__*/React.createElement("h2", {
+  }, "PACKAGES"), /*#__PURE__*/React.createElement("h2", {
     style: {
       fontSize: 28,
       fontWeight: 800,
       color: C.dark,
       margin: "0 0 8px"
     }
-  }, "Authentication for Every Collector"), /*#__PURE__*/React.createElement("p", {
+  }, "An Investment in Confidence"), /*#__PURE__*/React.createElement("p", {
     style: {
       color: C.gray,
       fontSize: 15,
       margin: 0
     }
-  }, "Start free. Upgrade when you're ready.")), /*#__PURE__*/React.createElement("div", {
+  }, "Protect what you treasure.")), /*#__PURE__*/React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))",
@@ -6835,6 +6504,40 @@ Reply ONLY in raw JSON, no markdown:
     color: C.roseDark,
     onClick: () => setPage("authenticate")
   }, "Try free — no account needed")))), /*#__PURE__*/React.createElement("div", {
+  style: {position:"relative", overflow:"hidden", background:"#0D1B2A"}
+},
+  /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: "absolute",
+      inset: 0,
+      backgroundImage: "url('https://images.unsplash.com/photo-1591348278863-a8fb3887e2aa?w=1600&q=80')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      opacity: 0.2
+    }
+  }),
+  /*#__PURE__*/React.createElement("div", {
+    style: {position:"absolute", inset:0, background:"linear-gradient(90deg, rgba(13,27,42,0.96) 0%, rgba(13,27,42,0.62) 100%)"}
+  }),
+  /*#__PURE__*/React.createElement("div", {
+    style: {position:"relative", zIndex:1, maxWidth:900, margin:"0 auto", padding:"80px 24px", display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:32},
+    className: "cta-row"
+  },
+    /*#__PURE__*/React.createElement("div", null,
+      /*#__PURE__*/React.createElement("div", {style:{fontSize:11, fontWeight:700, letterSpacing:4, color:C.gold, marginBottom:14, textTransform:"uppercase"}}, "Authentication"),
+      /*#__PURE__*/React.createElement("h2", {
+        style: {fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:"clamp(28px,4vw,52px)", fontWeight:600, color:"#FAFAF7", margin:0, lineHeight:1.2}
+      }, "Protect what you treasure."),
+      /*#__PURE__*/React.createElement("p", {style:{color:"rgba(250,250,247,0.6)", fontSize:15, lineHeight:1.7, marginTop:14, maxWidth:460}},
+        "An investment in confidence. Know the truth before you buy — or verify what you already love."
+      )
+    ),
+    /*#__PURE__*/React.createElement("button", {
+      className: "vt-cta-btn-gold",
+      onClick: () => setPage("authenticate")
+    }, "Authenticate A Bag →")
+  )
+), /*#__PURE__*/React.createElement("div", {
     style: {
       maxWidth: 920,
       margin: "0 auto",
