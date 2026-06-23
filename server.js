@@ -196,6 +196,66 @@ app.post('/api/analyze', async (req, res) => {
   });
 });
 
+// ─── MATERIAL CARE PROTOCOL ──────────────────────────────────────────────────
+
+app.post('/api/care', async (req, res) => {
+  const { image, mimeType } = req.body;
+  if (!image) return res.status(400).json({ error: 'No image provided' });
+
+  const ext = (mimeType || 'image/jpeg').split('/')[1] || 'jpg';
+  const tmpPath = path.join(os.tmpdir(), `vraitag_care_${Date.now()}.${ext}`);
+  try {
+    fs.writeFileSync(tmpPath, Buffer.from(image, 'base64'));
+  } catch (e) {
+    return res.status(500).json({ error: 'Failed to save image', message: e.message });
+  }
+
+  const py = spawn('python3', [path.join(__dirname, 'analyze.py'), '--care', tmpPath], {
+    env: { ...process.env },
+  });
+  let stdout = '', stderr = '';
+  py.stdout.on('data', d => { stdout += d.toString(); });
+  py.stderr.on('data', d => { stderr += d.toString(); });
+  py.on('close', (code) => {
+    try { fs.unlinkSync(tmpPath); } catch (_) {}
+    if (code !== 0) return res.status(500).json({ error: 'Care analysis failed', details: stderr.substring(0, 300) });
+    try { res.json(JSON.parse(stdout)); }
+    catch (e) { res.status(500).json({ error: 'Invalid JSON from care analyzer', raw: stdout.substring(0, 300) }); }
+  });
+});
+
+// ─── MULTI-IMAGE AUDIT (silhouette + date code) ───────────────────────────────
+
+app.post('/api/analyze/multi', async (req, res) => {
+  const { silhouette, datecode, mimeType } = req.body;
+  if (!silhouette || !datecode) return res.status(400).json({ error: 'Both silhouette and datecode images required' });
+
+  const ext = (mimeType || 'image/jpeg').split('/')[1] || 'jpg';
+  const ts = Date.now();
+  const sPath = path.join(os.tmpdir(), `vraitag_sil_${ts}.${ext}`);
+  const dPath = path.join(os.tmpdir(), `vraitag_dc_${ts}.${ext}`);
+  try {
+    fs.writeFileSync(sPath, Buffer.from(silhouette, 'base64'));
+    fs.writeFileSync(dPath, Buffer.from(datecode, 'base64'));
+  } catch (e) {
+    return res.status(500).json({ error: 'Failed to save images', message: e.message });
+  }
+
+  const py = spawn('python3', [path.join(__dirname, 'analyze.py'), sPath, dPath], {
+    env: { ...process.env },
+  });
+  let stdout = '', stderr = '';
+  py.stdout.on('data', d => { stdout += d.toString(); });
+  py.stderr.on('data', d => { stderr += d.toString(); });
+  py.on('close', (code) => {
+    try { fs.unlinkSync(sPath); } catch (_) {}
+    try { fs.unlinkSync(dPath); } catch (_) {}
+    if (code !== 0) return res.status(500).json({ error: 'Multi-image analysis failed', details: stderr.substring(0, 300) });
+    try { res.json(JSON.parse(stdout)); }
+    catch (e) { res.status(500).json({ error: 'Invalid JSON from analyzer', raw: stdout.substring(0, 300) }); }
+  });
+});
+
 // ─── EXPERT REVIEW REQUESTS ───────────────────────────────────────────────────
 const expertRequests = [];
 
