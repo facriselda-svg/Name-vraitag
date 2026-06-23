@@ -1,10 +1,11 @@
 {
   "name": "vraitag",
   "version": "1.0.0",
-  "description": "VraiTag™ — AI Luxury Bag Authentication",
+  "description": "VraiTag - AI Luxury Bag Authentication",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "pip install google-genai pillow pydantic || true"
   },
   "engines": {
     "node": ">=18.0.0"

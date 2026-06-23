@@ -3,6 +3,9 @@
 
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
+const os = require('os');
+const { spawn } = require('child_process');
 const app = express();
 
 app.use(express.json({ limit: '30mb' }));
@@ -149,6 +152,48 @@ app.post('/api/create-checkout', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: 'Checkout creation failed', message: err.message });
   }
+});
+
+// ─── STRUCTURED AI ANALYSIS (Python + google-genai) ─────────────────────────
+
+app.post('/api/analyze', async (req, res) => {
+  const { image, mimeType } = req.body; // image = base64 string
+  if (!image) return res.status(400).json({ error: 'No image provided' });
+
+  // Write base64 image to a temp file
+  const ext = (mimeType || 'image/jpeg').split('/')[1] || 'jpg';
+  const tmpPath = path.join(os.tmpdir(), `vraitag_${Date.now()}.${ext}`);
+  try {
+    fs.writeFileSync(tmpPath, Buffer.from(image, 'base64'));
+  } catch (e) {
+    return res.status(500).json({ error: 'Failed to save image', message: e.message });
+  }
+
+  // Call analyze.py
+  const py = spawn('python3', [path.join(__dirname, 'analyze.py'), tmpPath], {
+    env: { ...process.env },
+  });
+
+  let stdout = '';
+  let stderr = '';
+  py.stdout.on('data', d => { stdout += d.toString(); });
+  py.stderr.on('data', d => { stderr += d.toString(); });
+
+  py.on('close', (code) => {
+    // Clean up temp file
+    try { fs.unlinkSync(tmpPath); } catch (_) {}
+
+    if (code !== 0) {
+      console.error('[analyze.py error]', stderr);
+      return res.status(500).json({ error: 'Analysis failed', details: stderr.substring(0, 300) });
+    }
+    try {
+      const result = JSON.parse(stdout);
+      res.json(result);
+    } catch (e) {
+      res.status(500).json({ error: 'Invalid JSON from analyzer', raw: stdout.substring(0, 300) });
+    }
+  });
 });
 
 // ─── EXPERT REVIEW REQUESTS ───────────────────────────────────────────────────
