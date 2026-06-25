@@ -273,6 +273,164 @@ app.post('/api/expert-review', async (req, res) => {
   res.json({ success: true, requestId: request.id, message: 'Request received. Expert will review within 24-48 hours.' });
 });
 
+// Admin dashboard HTML page
+app.get('/admin', (req, res) => {
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VraiTag™ Admin</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',sans-serif;background:#0D1B2A;color:#FAFAF7;min-height:100vh}
+  .header{background:#0a1520;border-bottom:2px solid #C9A84C;padding:18px 32px;display:flex;align-items:center;gap:12px}
+  .logo{font-size:22px;font-weight:700;color:#C9A84C;letter-spacing:1px}
+  .subtitle{font-size:13px;color:#aaa}
+  .container{max-width:900px;margin:40px auto;padding:0 24px}
+  .login-box{background:#0a1520;border:1px solid #C9A84C33;border-radius:12px;padding:40px;max-width:380px;margin:80px auto;text-align:center}
+  .login-box h2{color:#C9A84C;margin-bottom:8px}
+  .login-box p{color:#aaa;font-size:14px;margin-bottom:24px}
+  input[type=password]{width:100%;padding:12px 16px;border-radius:8px;border:1px solid #C9A84C55;background:#0D1B2A;color:#fff;font-size:15px;margin-bottom:16px;outline:none}
+  input[type=password]:focus{border-color:#C9A84C}
+  button{width:100%;padding:12px;background:#C9A84C;color:#0D1B2A;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.5px}
+  button:hover{background:#D4AF37}
+  .error-msg{color:#ff6b6b;font-size:13px;margin-top:10px;display:none}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+  .stat{background:#0a1520;border:1px solid #C9A84C33;border-radius:10px;padding:20px;text-align:center}
+  .stat-num{font-size:32px;font-weight:700;color:#C9A84C}
+  .stat-label{font-size:12px;color:#aaa;margin-top:4px;text-transform:uppercase;letter-spacing:0.5px}
+  table{width:100%;border-collapse:collapse;background:#0a1520;border-radius:10px;overflow:hidden}
+  th{background:#C9A84C;color:#0D1B2A;padding:12px 16px;text-align:left;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px}
+  td{padding:12px 16px;border-bottom:1px solid #ffffff10;font-size:14px;vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:#ffffff06}
+  .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+  .badge-pending{background:#C9A84C22;color:#C9A84C;border:1px solid #C9A84C55}
+  .score{font-weight:700;color:#C9A84C}
+  .empty{text-align:center;padding:60px;color:#aaa}
+  .refresh-btn{background:transparent;border:1px solid #C9A84C55;color:#C9A84C;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:13px;float:right;margin-bottom:16px;width:auto}
+  .refresh-btn:hover{background:#C9A84C22}
+  h2.section{color:#C9A84C;margin-bottom:16px;font-size:18px;display:inline-block}
+  .logout{float:right;background:transparent;border:1px solid #ffffff22;color:#aaa;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px;width:auto}
+  .logout:hover{border-color:#ff6b6b;color:#ff6b6b}
+  #dashboard{display:none}
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <div class="logo">VraiTag™ Admin</div>
+    <div class="subtitle">Expert Review Management</div>
+  </div>
+  <button class="logout" id="logoutBtn" style="margin-left:auto;display:none" onclick="logout()">Log Out</button>
+</div>
+
+<div id="loginSection">
+  <div class="login-box">
+    <h2>🔐 Admin Login</h2>
+    <p>Enter your admin password to access the dashboard</p>
+    <input type="password" id="passInput" placeholder="Password" onkeydown="if(event.key==='Enter')login()">
+    <button onclick="login()">Login</button>
+    <div class="error-msg" id="errMsg">❌ Incorrect password. Try again.</div>
+  </div>
+</div>
+
+<div id="dashboard" class="container">
+  <div class="stats" id="statsRow"></div>
+  <div style="overflow:hidden;margin-bottom:8px">
+    <h2 class="section">Expert Review Requests</h2>
+    <button class="refresh-btn" onclick="loadData()">⟳ Refresh</button>
+  </div>
+  <div id="tableWrap"></div>
+</div>
+
+<script>
+let savedPass = '';
+
+async function login() {
+  const pass = document.getElementById('passInput').value.trim();
+  if (!pass) return;
+  try {
+    const r = await fetch('/admin/reviews', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({p: pass})
+    });
+    const data = await r.json();
+    if (r.status === 401) {
+      document.getElementById('errMsg').style.display = 'block';
+      return;
+    }
+    savedPass = pass;
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    document.getElementById('logoutBtn').style.display = 'inline-block';
+    renderDashboard(data);
+  } catch(e) {
+    document.getElementById('errMsg').style.display = 'block';
+  }
+}
+
+async function loadData() {
+  const r = await fetch('/admin/reviews', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({p: savedPass})
+  });
+  const data = await r.json();
+  renderDashboard(data);
+}
+
+function renderDashboard(data) {
+  const reqs = data.requests || [];
+  const pending = reqs.filter(r => r.status === 'pending').length;
+  document.getElementById('statsRow').innerHTML = \`
+    <div class="stat"><div class="stat-num">\${data.total}</div><div class="stat-label">Total Requests</div></div>
+    <div class="stat"><div class="stat-num">\${pending}</div><div class="stat-label">Pending Review</div></div>
+    <div class="stat"><div class="stat-num">\${reqs.length > 0 ? Math.round(reqs.reduce((a,r)=>a+(r.aiScore||0),0)/reqs.length) : 0}%</div><div class="stat-label">Avg AI Score</div></div>
+  \`;
+  if (reqs.length === 0) {
+    document.getElementById('tableWrap').innerHTML = '<div class="empty">No expert review requests yet.</div>';
+    return;
+  }
+  document.getElementById('tableWrap').innerHTML = \`
+    <table>
+      <thead><tr><th>Date</th><th>Brand / Model</th><th>Customer Email</th><th>AI Score</th><th>Status</th></tr></thead>
+      <tbody>\${reqs.map(r => \`
+        <tr>
+          <td>\${new Date(r.timestamp).toLocaleString('en-PH',{dateStyle:'medium',timeStyle:'short'})}</td>
+          <td><strong>\${r.brand||'—'}</strong><br><small style="color:#aaa">\${r.model||'—'}</small></td>
+          <td><a href="mailto:\${r.email||''}" style="color:#C9A84C">\${r.email||'—'}</a></td>
+          <td class="score">\${r.aiScore||0}%</td>
+          <td><span class="badge badge-pending">\${r.status||'pending'}</span></td>
+        </tr>
+      \`).join('')}</tbody>
+    </table>
+  \`;
+}
+
+function logout() {
+  savedPass = '';
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loginSection').style.display = 'block';
+  document.getElementById('logoutBtn').style.display = 'none';
+  document.getElementById('passInput').value = '';
+  document.getElementById('errMsg').style.display = 'none';
+}
+</script>
+</body>
+</html>`);
+});
+
+// Admin data endpoint — accepts POST with password in body
+app.post('/admin/reviews', (req, res) => {
+  const pass = req.body.p;
+  const adminPass = process.env.ADMIN_PASS || 'vraitag2025admin';
+  if (pass !== adminPass) return res.status(401).json({ error: 'Unauthorized' });
+  res.json({ total: expertRequests.length, requests: expertRequests });
+});
+
+// Legacy GET endpoint (kept for backward compatibility)
 app.get('/admin/reviews', (req, res) => {
   const pass = req.query.p;
   const adminPass = process.env.ADMIN_PASS || 'vraitag2025admin';
