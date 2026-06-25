@@ -3230,6 +3230,7 @@ function App() {
       date: newUser.joined,
       status: "Pending"
     });
+    fetch('/api/track-sale', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user:newUser.name,email:newUser.email,plan:newUser.plan,amount:plan.price,amountPHP:amountPHP,method:'PayMongo',status:'Pending',date:newUser.joined})}).catch(()=>{});
     sendEmail({
       to: ADMIN_EMAIL,
       subject: `⏳ CHECKOUT STARTED: ${newUser.name} — ${plan.name} Plan (₱${amountPHP})`,
@@ -3721,6 +3722,7 @@ Reply ONLY in raw JSON, no markdown:
           });
           const sale = DB.sales.find(s => s.user === newUser.name && s.status === "Pending");
           if (sale) sale.status = "Paid";
+          fetch('/api/update-sale', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:newUser.email,plan:newUser.plan,status:'Paid'})}).catch(()=>{});
         }, 500);
       }
     }, /*#__PURE__*/React.createElement("div", {
